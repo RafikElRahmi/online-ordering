@@ -21,3 +21,7 @@ main{
     display: flex;
     justify-content: space-between;
 }
+.pos-end{
+    display: flex;
+    justify-content: flex-end;
+}

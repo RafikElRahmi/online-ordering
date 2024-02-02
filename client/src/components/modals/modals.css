@@ -1,0 +1,26 @@
+.user-modal{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+ .modal-box{
+    width: 500px;
+    height: 260px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: space-between;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: white;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}

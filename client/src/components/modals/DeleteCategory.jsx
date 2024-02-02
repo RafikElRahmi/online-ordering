@@ -3,9 +3,9 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import axiosInstance from "../../config/axiosConfig";
 
-function DeleteProduct({ close, id, show }) {
+function DeleteCategory({ close, id, show }) {
   const handleDelete = async () => {
-    axiosInstance.delete(`/products/${id}`).then((res) => close());
+    axiosInstance.delete(`/categories/${id}`).then((res) => close());
   };
 
   return ReactDOM.createPortal(
@@ -15,7 +15,7 @@ function DeleteProduct({ close, id, show }) {
       </Modal.Header>
 
       <Modal.Body>
-        <p>You sure want to delete this product!</p>
+        <p>You sure want to delete this Category!</p>
       </Modal.Body>
 
       <Modal.Footer>
@@ -31,4 +31,4 @@ function DeleteProduct({ close, id, show }) {
   );
 }
 
-export default DeleteProduct;
+export default DeleteCategory;

@@ -12,21 +12,17 @@ function getOne(id, callback) {
     callback(error, results);
   });
 }
-function add(product, callback) {
+function add(category, callback) {
   const sql = "INSERT INTO `categories` SET ?";
-  connection.query(sql, product, async function (error, results) {
+  connection.query(sql, category, async function (error, results) {
     callback(error, results);
   });
 }
-function update(id, product, callback) {
+function update(id, category, callback) {
   const sql = "UPDATE `categories` SET name=? WHERE id=?";
-  connection.query(
-    sql,
-    [product.name, id],
-    async function (error, results) {
-      callback(error, results);
-    }
-  );
+  connection.query(sql, [category.name, id], async function (error, results) {
+    callback(error, results);
+  });
 }
 function remove(id, callback) {
   const sql = "DELETE FROM `categories` WHERE id = ?";
