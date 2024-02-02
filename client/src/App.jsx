@@ -1,15 +1,17 @@
 import axios from 'axios'
 import './App.css'
-import axiosInstance from './config/axiosConfig'
+import { RouterProvider } from 'react-router-dom'
+import router from './router'
+import NavBar from './components/NavBar/NavBar'
+import Footer from './components/Footer/Footer'
 
 function App() {
-  const tryhard = () => {
-    axiosInstance.get("/").then((res)=>console.log(res.data)).catch((err)=>console.log(err))
-  }
+  
   return (
     <>
-      hello world
-      <button onClick={tryhard}>dont click me</button>
+      <NavBar/>
+      <RouterProvider router={ router } />
+      <Footer/>
     </>
   )
 }
