@@ -2,7 +2,7 @@ import { createUser, getUserByUsername } from "../models/user.mjs";
 import hash from "../utils/hash.mjs";
 import bcrypt from "bcryptjs";
 
-export async function login(req, res,next) {
+export async function login(req, res, next) {
   try {
     const { username, password } = req.body;
     if (username && password) {
@@ -10,12 +10,20 @@ export async function login(req, res,next) {
         if (err) return res.status(500).send("Internal Server Error");
         else if (!result) return res.status(404).send("Username not found");
         else {
+          if (
+            result.username == `${process.env.USERNAME}` &&
+            password &&
+            `${process.env.PASSWORD}`
+          ) {
+            next({userId:result.id,isAdmin:true});
+          } else {
             const passwordMatch = bcrypt.compareSync(password, result.password);
             if (passwordMatch) {
-              next(result.id)
+              next({ userId: result.id, isAdmin: false });
             } else {
-                return res.status(401).send("Invalid Password");
+              return res.status(401).send("Invalid Password");
             }
+          }
         }
       });
     } else {
@@ -25,7 +33,7 @@ export async function login(req, res,next) {
     return res.status(500).send("Internal Server Error");
   }
 }
-export async function register(req, res,next) {
+export async function register(req, res, next) {
   try {
     const { username, phone, password } = req.body;
     const hashed = await hash(password);
@@ -42,7 +50,7 @@ export async function register(req, res,next) {
                   .status(500)
                   .send({ msg: "Internal Server Error", err });
               if (result) {
-                next(result.id);
+                next({ userId: result.id, isAdmin: false });
               }
             }
           );

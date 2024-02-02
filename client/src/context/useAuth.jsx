@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axiosInstance from "../config/axiosConfig";
 import { clearToken, getCookie } from "../utils/cookies";
 const AuthUser = React.createContext(null);
 export const Auth = ({ children }) => {
+  const [isAdmin, setIsAdmin] = useState(false);
   const isLogged = async () => {
     const token = getCookie("token");
     if (!token.length) {
@@ -13,19 +14,23 @@ export const Auth = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const { Logged } = res.data;
-    if (!Logged) {
+    const { Logged, admin } = res.data;
+    if (Logged) {
+      setIsAdmin(admin);
+      return Logged;
+    } else {
       logout();
+      return Logged;
     }
-    return Logged;
   };
   const logout = () => {
     clearToken();
+    setIsAdmin(false);
     window.location.replace("/");
   };
 
   return (
-    <AuthUser.Provider value={{ isLogged, logout }}>
+    <AuthUser.Provider value={{ isLogged, logout, isAdmin }}>
       {children}
     </AuthUser.Provider>
   );

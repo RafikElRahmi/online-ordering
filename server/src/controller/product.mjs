@@ -34,7 +34,6 @@ export async function getProduct(req, res, next) {
 export async function createProduct(req, res, next) {
   try {
     const productData = req.body;
-    console.log(productData);
     ProductModel.add(productData, (err, result) => {
       if (err) return res.status(500).send("Internal Server Error");
       else {

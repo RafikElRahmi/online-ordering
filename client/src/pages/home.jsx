@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axiosInstance from "./../config/axiosConfig";
+import { useAuth } from "../context/useAuth";
+import DeleteProduct from "../components/modals/DeleteProduct";
 
 const Home = () => {
+  // const [deletePM, setDeletePM] = useState(true);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-
+  const { isAdmin } = useAuth();
   useEffect(() => {
     axiosInstance
       .get("/categories")
@@ -20,6 +23,21 @@ const Home = () => {
 
   return (
     <Container>
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
+      <DeleteProduct />
       <Row className="mt-4">
         <h3>Categories</h3>
         <ul>
@@ -42,7 +60,14 @@ const Home = () => {
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>Price: {product.price} DT</Card.Text>
-                  <Button variant="primary">Add to Cart</Button>
+                  {isAdmin ? (
+                    <div className="button-container">
+                      <Button variant="danger">Delete</Button>
+                      <Button variant="success">Update</Button>
+                    </div>
+                  ) : (
+                    <Button variant="primary">Add to Cart</Button>
+                  )}
                 </Card.Body>
               </Card>
             </Col>

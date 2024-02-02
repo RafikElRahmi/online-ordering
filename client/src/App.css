@@ -13,3 +13,11 @@
     width: 100%;
     text-align: center;
 }
+main{
+    min-height: 90vh;
+}
+.button-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

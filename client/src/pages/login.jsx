@@ -7,7 +7,6 @@ import axiosInstance from "./../config/axiosConfig";
 import { tokenization } from "../utils/cookies";
 import { useNavigate } from 'react-router-dom';
 function Login() {
-  const navigate = useNavigate()
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const username = useRef(null);
@@ -22,7 +21,7 @@ function Login() {
             password: password.current.value,
         }).then((res) => {
           tokenization(res)
-          navigate("/")
+          window.location.replace('/')
           })
           .catch((err) => console.log("err", err));
       } else {

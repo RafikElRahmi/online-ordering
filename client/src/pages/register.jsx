@@ -17,10 +17,7 @@ function Register() {
     setPhoneError("");
     setPasswordError("");
     if (username.current.value.length >= 6) {
-      if (
-        phone.current.value >= 10000000 &&
-        phone.current.value < 100000000
-      ) {
+      if (phone.current.value >= 10000000 && phone.current.value < 100000000) {
         if (password.current.value.length >= 6) {
           axiosInstance
             .post("/register", {
@@ -29,8 +26,8 @@ function Register() {
               password: password.current.value,
             })
             .then((res) => {
-            tokenization(res);
-
+              tokenization(res);
+              window.location.replace("/");
             })
             .catch((err) => console.log("err", err));
         } else {
@@ -63,7 +60,7 @@ function Register() {
             <Form.Label>Phone</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter your username"
+              placeholder="Enter your phone number"
               ref={phone}
             />
             {phoneError.length > 0 && (

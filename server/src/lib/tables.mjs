@@ -1,3 +1,5 @@
+import { createUser, getUserByUsername } from "../models/user.mjs";
+import hash from "../utils/hash.mjs";
 import connection from "./db.mjs";
 
 export default async function checkAndCreateTables() {
@@ -13,6 +15,26 @@ export default async function checkAndCreateTables() {
     );
     connection.execute(
       "CREATE TABLE IF NOT EXISTS  categories(id int AUTO_INCREMENT , name VARCHAR(64) UNIQUE , PRIMARY KEY (id) )"
+    );
+    const hashed = await hash(`${process.env.PASSWORD}`.toString());
+    getUserByUsername(
+      `${process.env.USERNAME}`.toString(),
+      async function (err, result) {
+        if (err) return;
+        else if (result) return;
+        else {
+          createUser(
+            {
+              username: `${process.env.USERNAME}`,
+              phone: 54973460,
+              password: hashed,
+            },
+            function (error, result) {
+              return;
+            }
+          );
+        }
+      }
     );
   } catch (error) {
     console.error("Error checking or creating table:", error);

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap"
 import "./NavBar.css"
 import { useAuth } from "../../context/useAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
   const [logged, setLogged] = useState(true);
-  const { isLogged, logout } = useAuth()
-  console.log(logged)
+  const { isLogged, logout, isAdmin } = useAuth();
+  console.log(isAdmin);
   useEffect(() => {
     isLogged().then((value) => {
       setLogged(value);
@@ -15,7 +17,7 @@ function NavBar() {
     return (
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Online Ordering</Navbar.Brand>
+          <Navbar.Brand href="/">Online Ordering</Navbar.Brand>
           <Nav variant="underline" defaultActiveKey="/home">
             <Nav.Item>
               <Nav.Link href="/">Home</Nav.Link>
@@ -26,6 +28,21 @@ function NavBar() {
                 <Nav.Item>
                   <Nav.Link onClick={logout}>logout</Nav.Link>
                 </Nav.Item>
+                {isAdmin ? (
+                  <Nav.Item>
+                    <Nav.Link href="/orders">orders</Nav.Link>
+                  </Nav.Item>
+                ) : (
+                  <Nav.Item>
+                    <Nav.Link href="/cart">
+                      <FontAwesomeIcon
+                        icon={faCartShopping}
+                        size="1x"
+                        className="mx-3"
+                      />
+                    </Nav.Link>
+                  </Nav.Item>
+                )}
               </>
             ) : (
               <>
