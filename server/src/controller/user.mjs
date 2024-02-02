@@ -31,7 +31,7 @@ export async function register(req, res,next) {
     const hashed = await hash(password);
     if (username && phone && password) {
       getUserByUsername(username, function (err, result) {
-        if (err) return res.status(500).send("Internal Server Error1");
+        if (err) return res.status(500).send("Internal Server Error");
         else if (result) return res.status(406).send("Username already exist");
         else {
           createUser(
@@ -40,7 +40,7 @@ export async function register(req, res,next) {
               if (error)
                 return res
                   .status(500)
-                  .send({ msg: "Internal Server Error2", err });
+                  .send({ msg: "Internal Server Error", err });
               if (result) {
                 next(result.id);
               }
@@ -52,6 +52,6 @@ export async function register(req, res,next) {
       return res.status(400).send("invalid data user");
     }
   } catch (err) {
-    return res.status(500).send("Internal Server Error3");
+    return res.status(500).send("Internal Server Error");
   }
 }

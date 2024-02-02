@@ -1,4 +1,4 @@
-export function getCookie(cname) {
+export  function  getCookie(cname) {
   const name = `${cname}=`;
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(";");
@@ -25,6 +25,6 @@ export function tokenization(res) {
   }
   return false;
 }
-export function clearToken(name) {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+export function clearToken() {
+  document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }

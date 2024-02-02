@@ -5,7 +5,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axiosInstance from "./../config/axiosConfig";
 import { tokenization } from "../utils/cookies";
+import { useNavigate } from 'react-router-dom';
 function Login() {
+  const navigate = useNavigate()
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const username = useRef(null);
@@ -19,7 +21,8 @@ function Login() {
             username: username.current.value,
             password: password.current.value,
         }).then((res) => {
-            tokenization(res)
+          tokenization(res)
+          navigate("/")
           })
           .catch((err) => console.log("err", err));
       } else {

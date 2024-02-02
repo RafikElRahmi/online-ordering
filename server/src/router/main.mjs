@@ -1,9 +1,12 @@
-import { Router } from "express"
+import { Router } from "express";
+import routerProducts from "./product.mjs";
 import { login, register } from "../controller/user.mjs";
 import { generateToken } from "../utils/token.mjs";
-const router = Router()
-
-router.get('/',(req,res)=>res.status(200).send('not me'))
+import routerCategories from "./category.mjs";
+const router = Router();
+router.use(routerProducts);;
+router.use(routerCategories);
+router.get("/", (req, res) => res.status(200).send("not me"));
 router.route("/login").post(login, generateToken);
 router.route("/register").post(register, generateToken);
-export default router
+export default router;
