@@ -75,7 +75,6 @@ export async function createOrder(req, res, next) {
     const OrderData = req.body;
     const token = req.headers.authorization?.split(" ")[1] || "";
     const tokenData = decodeToken(token);
-    console.log(tokenData)
     OrderModel.add(
       {
         client_id: tokenData.userId,
