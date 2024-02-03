@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  Row,
-} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import axiosInstance from "../config/axiosConfig";
 import { getCookie } from "../utils/cookies";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import OneCart from "../components/cart/oneCart";
+import OrderHandler from "../components/cart/orderHandler";
 
 function Cart() {
   const { setitems } = useAuth();
@@ -28,10 +22,15 @@ function Cart() {
   }, []);
   const getTotal = (products) => {
     if (!products || products.length === 0) return 0;
-    return products.reduce(
+    const Net = products.reduce(
       (prev, actual) => prev + actual.price * actual.quantity,
       0
     );
+    if (Net >= 100) {
+      return Net * 0.75
+    } else {
+      return Net
+    }
   };
   const handleClick = (action, id) => {
     products.forEach((p) => {
@@ -83,67 +82,14 @@ function Cart() {
         <>
           {products.map((product) => {
             return (
-              <Card
-                key={product.id}
-                className="m-3 p-3"
-                style={{ width: "100%" }}
-              >
-                <Row className="d-flex  align-items-center">
-                  <Col className="col-4" as={"h4"}>
-                    {product.name}
-                  </Col>
-                  <Col className="text-end col-2">
-                    <InputGroup className="mb-3 d-flex ">
-                      <Button
-                        variant="outline-secondary fw-bold"
-                        style={{ width: "40px" }}
-                        onClick={() => handleClick("decrement", product.id)}
-                      >
-                        -
-                      </Button>
-                      <Form.Control
-                        className="text-center"
-                        style={ { maxWidth: "50px" } }
-                        value={product.quantity}
-                      ></Form.Control>
-                      <Button
-                        variant="outline-secondary fw-bold"
-                        style={{ width: "40px" }}
-                        onClick={() => handleClick("increment", product.id)}
-                      >
-                        +
-                      </Button>
-                    </InputGroup>
-                  </Col>
-                  <Col className="col-3 text-end" as={"h5"}>
-                    {product.price * product.quantity} DT
-                  </Col>
-                  <Col className="col-3 px-2 d-flex justify-content-end">
-                    <Button
-                      onClick={() => handleRemove(product.id)}
-                      variant="danger"
-                    >
-                      Remove from cart
-                    </Button>
-                  </Col>
-                </Row>
-              </Card>
+              <OneCart
+                product={product}
+                handleClick={handleClick}
+                handleRemove={handleRemove}
+              />
             );
           })}
-          <Row className=" d-flex justify-content-end">
-            <Card className=" col-4 p-3 fs-3">
-              <Row>
-                <Col className="col-6 ">Total to pay :</Col>
-                <Col className="col-6">{total}</Col>
-              </Row>
-            </Card>
-          </Row>
-
-          <Row className=" d-flex justify-content-end">
-            <Button className="m-3 col-3" onClick={sendOrder}>
-              Send Order
-            </Button>
-          </Row>
+          <OrderHandler sendOrder={sendOrder} total={total} />
         </>
       ) : (
         <h2 className="text-center my-3">Add some products to the Cart!</h2>

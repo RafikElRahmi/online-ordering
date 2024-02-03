@@ -9,7 +9,7 @@ import CreateProduct from "../components/modals/CreateProduct";
 import CreateCategory from "../components/modals/CreateCategory";
 import DeleteCategory from "../components/modals/DeleteCategory";
 import UpdateCategory from "../components/modals/UpdateCategory";
-import CartButton from "../components/Button/cartButton";
+import CartButton from "../components/cart/cartButton";
 
 const Home = () => {
   const [deletePM, setDeletePM] = useState(false);
