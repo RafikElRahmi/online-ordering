@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
+  const {items} =useAuth()
   const [logged, setLogged] = useState(true);
   const { isLogged, logout, isAdmin } = useAuth();
   useEffect(() => {
@@ -33,12 +34,13 @@ function NavBar() {
                   </Nav.Item>
                 ) : (
                   <Nav.Item>
-                    <Nav.Link href="/cart">
+                    <Nav.Link href="/cart" style={{position :'relative'}}>
                       <FontAwesomeIcon
                         icon={faCartShopping}
                         size="1x"
                         className="mx-3"
                       />
+                      <span className="notifcation">{items}</span>
                     </Nav.Link>
                   </Nav.Item>
                 )}

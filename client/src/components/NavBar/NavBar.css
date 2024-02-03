@@ -2,3 +2,20 @@
     width: 80px;
     text-align: center;
 }
+.notifcation{
+    background-color: red;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    line-height: 15px;
+    font-size: 0.8rem;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}

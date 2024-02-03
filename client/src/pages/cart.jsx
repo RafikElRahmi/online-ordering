@@ -10,10 +10,12 @@ import {
 } from "react-bootstrap";
 import axiosInstance from "../config/axiosConfig";
 import { getCookie } from "../utils/cookies";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
 function Cart() {
-    const navigate = useNavigate()
+  const { setitems } = useAuth();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -52,6 +54,7 @@ function Cart() {
     localStorage.setItem("products", JSON.stringify(newList));
     setProducts(newList);
     setTotal(getTotal(newList));
+    setitems(newList.length);
   };
   const sendOrder = () => {
     const token = getCookie("token");
@@ -67,9 +70,10 @@ function Cart() {
         }
       )
       .then((res) => {
-          localStorage.removeItem("products");
-          setProducts([])
-          navigate('/')
+        localStorage.removeItem("products");
+        setProducts([]);
+        setitems(0);
+        navigate("/");
       });
   };
   return (
@@ -99,7 +103,7 @@ function Cart() {
                       </Button>
                       <Form.Control
                         className="text-center"
-                        style={{ maxWidth: "50px" }}
+                        style={ { maxWidth: "50px" } }
                         value={product.quantity}
                       ></Form.Control>
                       <Button

@@ -28,7 +28,7 @@ const Home = () => {
   });
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  const { isAdmin } = useAuth();
+  const { isAdmin,setitems } = useAuth();
   useEffect(() => {
     axiosInstance
       .get("/categories")
@@ -144,7 +144,7 @@ const Home = () => {
                         </Button>
                       </div>
                     ) : (
-                      <Button variant="primary">Add to Cart</Button>
+                      null
                     )}
                   </Card.Body>
                 </Card>
@@ -201,7 +201,7 @@ const Home = () => {
                         </Button>
                       </div>
                     ) : (
-                      <CartButton product={product} />
+                        <CartButton product={ product } items={ setitems } />
                     )}
                   </Card.Body>
                 </Card>
