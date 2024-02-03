@@ -2,8 +2,10 @@ import ReactDOM from "react-dom";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import axiosInstance from "../../config/axiosConfig";
+import { useAuth } from "../../context/useAuth";
 
 function OrderDetails({ close, id, show }) {
+  const {isAdmin}= useAuth()
   const [orderData, setOrderData] = useState([]);
   useEffect(() => {
     axiosInstance.get(`orders/${id}`).then((res) => {
@@ -46,7 +48,7 @@ function OrderDetails({ close, id, show }) {
         <Button variant="secondary" onClick={close}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => handleOrder("waiting")}>
+        {isAdmin && <><Button variant="primary" onClick={() => handleOrder("waiting")}>
           waiting
         </Button>
         <Button variant="danger" onClick={() => handleOrder("delivered")}>
@@ -54,7 +56,7 @@ function OrderDetails({ close, id, show }) {
         </Button>
         <Button variant="success" onClick={() => handleOrder("received")}>
           received
-        </Button>
+        </Button></>}
       </Modal.Footer>
     </Modal>,
     document.body

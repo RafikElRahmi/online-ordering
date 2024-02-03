@@ -12,6 +12,12 @@ function getOne(id, callback) {
     callback(error, results);
   });
 }
+function getSome(id, callback) {
+  const sql = "SELECT * FROM `orders` WHERE client_id=?";
+  connection.query(sql, [id], async function (error, results) {
+    callback(error, results);
+  });
+}
 function add(order, callback) {
   const sql = "INSERT INTO `orders` SET ?";
   connection.query(sql, order, async function (error, results) {
@@ -30,5 +36,6 @@ const OrderModel = {
   getOne,
   add,
   update,
+  getSome,
 };
 export default OrderModel;

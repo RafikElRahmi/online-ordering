@@ -50,7 +50,7 @@ export async function register(req, res, next) {
                   .status(500)
                   .send({ msg: "Internal Server Error", err });
               if (result) {
-                next({ userId: result.id, isAdmin: false });
+                next({ userId: result.insertId, isAdmin: false });
               }
             }
           );

@@ -31,6 +31,7 @@ export const Auth = ({ children }) => {
     }
   };
   const logout = () => {
+    localStorage.removeItem('products')
     clearToken();
     setIsAdmin(false);
     window.location.replace("/");

@@ -18,6 +18,23 @@ export async function getOrders(req, res, next) {
     return res.status(500).send("Internal Server Error");
   }
 }
+export async function getUserOrders(req, res, next) {
+  try {
+    const token = req.headers.authorization?.split(" ")[1] || "";
+    const { userId } = decodeToken(token);
+    OrderModel.getSome(userId, (err, result) => {
+      if (err) {
+        return res.status(500).send("Internal Server Error");
+      } else if (result.length) {
+        return res.status(200).send(result);
+      } else {
+        return res.status(404).send("Not Found");
+      }
+    });
+  } catch (err) {
+    return res.status(500).send("Internal Server Error");
+  }
+}
 export async function getOrder(req, res, next) {
   try {
     const id = req.params.id;
@@ -58,6 +75,7 @@ export async function createOrder(req, res, next) {
     const OrderData = req.body;
     const token = req.headers.authorization?.split(" ")[1] || "";
     const tokenData = decodeToken(token);
+    console.log(tokenData)
     OrderModel.add(
       {
         client_id: tokenData.userId,
