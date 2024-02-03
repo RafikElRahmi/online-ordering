@@ -1,5 +1,6 @@
 import OrderModel from "../models/order.mjs";
 import OrderedProductModel from "../models/orderedProducts.mjs";
+import ProductModel from "../models/product.mjs";
 import { decodeToken } from "../utils/token.mjs";
 
 export async function getOrders(req, res, next) {
@@ -24,15 +25,24 @@ export async function getOrder(req, res, next) {
       if (err) {
         return res.status(500).send("Internal Server Error");
       } else if (result.length) {
-        const data = result[0];
-        console.log(data);
-        console.log(id);
         OrderedProductModel.getSome(id, (err, result) => {
           if (err) {
             return res.status(500).send("Internal Server Error");
           } else {
-            data.products = result;
-            return res.status(200).send(data);
+            let products = [];
+            result.forEach((ele, _, arr) => {
+              ProductModel.getOne(ele.product_id, (err, result) => {
+                if (err) {
+                  return res.status(500).send("Internal Server Error");
+                } else {
+                  ele.name = result[0].name;
+                  products.push(ele);
+                  if (products.length == arr.length) {
+                    return res.status(200).send(products);
+                  }
+                }
+              });
+            });
           }
         });
       } else {

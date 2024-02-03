@@ -1,18 +1,18 @@
 import ReactDOM from "react-dom";
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import axiosInstance from "../../config/axiosConfig";
 
 function OrderDetails({ close, id, show }) {
   const [orderData, setOrderData] = useState([]);
   useEffect(() => {
     axiosInstance.get(`orders/${id}`).then((res) => {
-      setOrderData(res.data.products);
-      console.log(res);
+      setOrderData(res.data);
+      console.log(res.data);
     });
     return;
   }, [id]);
-  const handleDelete = async () => {
+  const handleOrder = async (action) => {
     // axiosInstance.delete(`/products/${id}`).then((res) => close());
   };
 
@@ -21,11 +21,21 @@ function OrderDetails({ close, id, show }) {
       <Modal.Header closeButton>
         <Modal.Title>Order Details</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ maxHeight: "70vh", overflowY: "scroll" }}>
         {orderData && orderData.length > 0 ? (
           <>
             {orderData.map((product) => {
-              return <h1>me</h1>;
+              return (
+                <Card key={product.id} className="p-3 m-2">
+                  <Row>
+                    <Col className="col-6">{product.name}</Col>
+                    <Col className="col-2 text-end">{product.quantity}</Col>
+                    <Col className="col-4 text-end">
+                      {product.quantity * product.price} DT
+                    </Col>
+                  </Row>
+                </Card>
+              );
             })}
           </>
         ) : null}
@@ -35,8 +45,14 @@ function OrderDetails({ close, id, show }) {
         <Button variant="secondary" onClick={close}>
           Close
         </Button>
-        <Button variant="danger" onClick={handleDelete}>
-          Confirm
+        <Button variant="primary" onClick={() => handleOrder("waiting")}>
+          waiting
+        </Button>
+        <Button variant="danger" onClick={() => handleOrder("delivered")}>
+          delivered
+        </Button>
+        <Button variant="success" onClick={() => handleOrder("received")}>
+          received
         </Button>
       </Modal.Footer>
     </Modal>,
