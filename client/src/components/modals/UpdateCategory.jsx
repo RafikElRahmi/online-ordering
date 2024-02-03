@@ -15,7 +15,7 @@ function UpdateCategory({ close, category, show }) {
   };
 
   return ReactDOM.createPortal(
-    <Modal show={show} onHide={close}>
+    <Modal show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>Update category</Modal.Title>
       </Modal.Header>

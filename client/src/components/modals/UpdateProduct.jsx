@@ -17,7 +17,7 @@ function UpdateProduct({ close, product, show }) {
   };
 
   return ReactDOM.createPortal(
-    <Modal show={show} onHide={close}>
+    <Modal show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>Update product</Modal.Title>
       </Modal.Header>

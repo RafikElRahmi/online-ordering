@@ -15,7 +15,7 @@ function CreateCategory({ close, show }) {
   };
 
   return ReactDOM.createPortal(
-    <Modal show={show} onHide={close}>
+    <Modal show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>Create new Category</Modal.Title>
       </Modal.Header>

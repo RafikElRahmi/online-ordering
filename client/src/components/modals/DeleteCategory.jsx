@@ -9,7 +9,7 @@ function DeleteCategory({ close, id, show }) {
   };
 
   return ReactDOM.createPortal(
-    <Modal show={show} onHide={close}>
+    <Modal show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>Deletion Box</Modal.Title>
       </Modal.Header>

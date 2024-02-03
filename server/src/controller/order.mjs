@@ -24,7 +24,17 @@ export async function getOrder(req, res, next) {
       if (err) {
         return res.status(500).send("Internal Server Error");
       } else if (result.length) {
-        return res.status(200).send(result);
+        const data = result[0];
+        console.log(data);
+        console.log(id);
+        OrderedProductModel.getSome(id, (err, result) => {
+          if (err) {
+            return res.status(500).send("Internal Server Error");
+          } else {
+            data.products = result;
+            return res.status(200).send(data);
+          }
+        });
       } else {
         return res.status(404).send("Not Found");
       }
@@ -56,8 +66,7 @@ export async function createOrder(req, res, next) {
                 quantity: ele.quantity,
                 product_id: ele.id,
               },
-              (err, result) => {
-              }
+              (err, result) => {}
             );
           });
           return res.status(201).send("created");

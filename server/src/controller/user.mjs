@@ -1,7 +1,6 @@
-import { createUser, getUserByUsername } from "../models/user.mjs";
+import { createUser, getUserById, getUserByUsername } from "../models/user.mjs";
 import hash from "../utils/hash.mjs";
 import bcrypt from "bcryptjs";
-import { decodeToken } from "../utils/token.mjs";
 
 export async function login(req, res, next) {
   try {
@@ -16,7 +15,7 @@ export async function login(req, res, next) {
             password &&
             `${process.env.PASSWORD}`
           ) {
-            next({userId:result.id,isAdmin:true});
+            next({ userId: result.id, isAdmin: true });
           } else {
             const passwordMatch = bcrypt.compareSync(password, result.password);
             if (passwordMatch) {
@@ -63,4 +62,19 @@ export async function register(req, res, next) {
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
+}
+export async function getOneUser(req, res) {
+  try {
+    const id = req.params.id;
+    getUserById(id, (err, result) => {
+      if (err) return res.status(500).send("Internal Server Error");
+      else if (result) {
+        return res
+          .status(200)
+          .send({ name: result.username, phone: result.phone });
+      } else {
+        return res.status(404).send("not found");
+      }
+    });
+  } catch (error) {}
 }

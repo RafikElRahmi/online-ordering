@@ -17,7 +17,7 @@ function CreateProduct({ close, show }) {
   };
 
   return ReactDOM.createPortal(
-    <Modal show={show} onHide={close}>
+    <Modal show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>Create new product</Modal.Title>
       </Modal.Header>
