@@ -9,6 +9,7 @@ import CreateProduct from "../components/modals/CreateProduct";
 import CreateCategory from "../components/modals/CreateCategory";
 import DeleteCategory from "../components/modals/DeleteCategory";
 import UpdateCategory from "../components/modals/UpdateCategory";
+import CartButton from "../components/Button/cartButton";
 
 const Home = () => {
   const [deletePM, setDeletePM] = useState(false);
@@ -200,7 +201,7 @@ const Home = () => {
                         </Button>
                       </div>
                     ) : (
-                      <Button variant="primary">Add to Cart</Button>
+                      <CartButton product={product} />
                     )}
                   </Card.Body>
                 </Card>

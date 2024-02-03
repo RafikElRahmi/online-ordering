@@ -8,7 +8,6 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 function NavBar() {
   const [logged, setLogged] = useState(true);
   const { isLogged, logout, isAdmin } = useAuth();
-  console.log(isAdmin);
   useEffect(() => {
     isLogged().then((value) => {
       setLogged(value);

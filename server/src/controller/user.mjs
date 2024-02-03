@@ -1,6 +1,7 @@
 import { createUser, getUserByUsername } from "../models/user.mjs";
 import hash from "../utils/hash.mjs";
 import bcrypt from "bcryptjs";
+import { decodeToken } from "../utils/token.mjs";
 
 export async function login(req, res, next) {
   try {

@@ -1,12 +1,14 @@
 import { Router } from "express";
 import routerProducts from "./product.mjs";
-import { login, register } from "../controller/user.mjs";
+import {  login, register } from "../controller/user.mjs";
 import { generateToken } from "../utils/token.mjs";
 import routerCategories from "./category.mjs";
 import { checkAuth } from "../utils/auth.mjs";
+import routerOrders from "./order.mjs";
 const router = Router();
-router.use(routerProducts);;
+router.use(routerProducts);
 router.use(routerCategories);
+router.use(routerOrders);
 router.get("/auth", checkAuth);
 router.route("/login").post(login, generateToken);
 router.route("/register").post(register, generateToken);
