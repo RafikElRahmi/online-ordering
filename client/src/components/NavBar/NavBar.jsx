@@ -25,16 +25,13 @@ function NavBar() {
 
             {logged ? (
               <>
-                <Nav.Item>
-                  <Nav.Link onClick={logout}>logout</Nav.Link>
-                </Nav.Item>
                 {isAdmin ? (
                   <Nav.Item>
                     <Nav.Link href="/orders">orders</Nav.Link>
                   </Nav.Item>
                 ) : (
                   <Nav.Item>
-                    <Nav.Link href="/cart" style={{position :'relative'}}>
+                    <Nav.Link href="/cart" style={{ position: "relative" }}>
                       <FontAwesomeIcon
                         icon={faCartShopping}
                         size="1x"
@@ -44,6 +41,9 @@ function NavBar() {
                     </Nav.Link>
                   </Nav.Item>
                 )}
+                <Nav.Item>
+                  <Nav.Link onClick={logout}>logout</Nav.Link>
+                </Nav.Item>
               </>
             ) : (
               <>

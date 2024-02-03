@@ -18,9 +18,9 @@ function add(order, callback) {
     callback(error, results);
   });
 }
-function update(id, order, callback) {
+function update(id, status, callback) {
   const sql = "UPDATE `orders` SET status=? WHERE id=?";
-  connection.query(sql, [order.status, id], async function (error, results) {
+  connection.query(sql, [status, id], async function (error, results) {
     callback(error, results);
   });
 }

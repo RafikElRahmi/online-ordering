@@ -8,12 +8,13 @@ function OrderDetails({ close, id, show }) {
   useEffect(() => {
     axiosInstance.get(`orders/${id}`).then((res) => {
       setOrderData(res.data);
-      console.log(res.data);
     });
     return;
   }, [id]);
   const handleOrder = async (action) => {
-    // axiosInstance.delete(`/products/${id}`).then((res) => close());
+    axiosInstance
+      .put(`/orders/${id}`, { status: action })
+      .then((res) => close());
   };
 
   return ReactDOM.createPortal(

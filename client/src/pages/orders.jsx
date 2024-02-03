@@ -3,14 +3,15 @@ import axiosInstance from "../config/axiosConfig";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import UserDetails from "../components/user/UserDetails";
 import OrderDetails from "../components/modals/OrderDetails";
+import sortingData from "../utils/sortingOrders";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [detailsM, setDetailsM] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   useEffect(() => {
-    axiosInstance.get("orders").then((res) => setOrders(res.data));
-  }, []);
+    axiosInstance.get("orders").then((res) => setOrders(sortingData(res.data)));
+  }, [selectedId]);
   return (
     <Container>
       <OrderDetails

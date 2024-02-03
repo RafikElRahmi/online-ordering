@@ -91,7 +91,7 @@ export async function updateOrder(req, res, next) {
   try {
     const id = req.params.id;
     const OrderData = req.body;
-    OrderModel.update(id, OrderData, (err, result) => {
+    OrderModel.update(id, OrderData.status, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       } else if (result.affectedRows === 1) {
