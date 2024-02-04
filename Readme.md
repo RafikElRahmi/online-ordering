@@ -25,18 +25,22 @@ Before you begin, ensure you have the following installed:
    git clone https://github.com/RafikElRahmi/online-ordering
    cd online-ordering-system
 
-# Install frontend dependencies
-cd frontend
-npm install
+2. Install frontend dependencies
 
-# Install backend dependencies
-cd server
-npm install
+    ```bash
+    cd frontend
+    npm install
 
-# Create your db
+3. Install backend dependencies
+
+    ```bash
+    cd server
+    npm install
+
+4. Create your db
 you can use wampserver or  any other mysql server to create a database 
 
-# Setup .env file in backend
+5. Setup .env file in backend
 SECRET_KEY=your_secret_key
 USERNAME=admin_username
 PASSWORD=admin_password
@@ -45,10 +49,14 @@ DB_USER=your_mysql_username
 DB_PASSWORD=your_mysql_password
 DB_DATABASE=your_db_name
 
-# Start the frontend
-cd frontend
-npm run dev
+6. Start the frontend
 
-# Start the backend
-cd ../backend
-npm run dev
+    ```bash
+    cd frontend
+    npm run dev
+
+7. Start the backend
+
+    ```bash
+    cd ../backend
+    npm run dev
