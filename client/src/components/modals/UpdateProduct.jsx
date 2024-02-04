@@ -1,9 +1,15 @@
 import ReactDOM from "react-dom";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import axiosInstance from "../../config/axiosConfig";
+import  AsyncSelect  from 'react-select/async';
 
 function UpdateProduct({ close, product, show }) {
+   const [selectedOptions, setSelectedOptions] = useState([]);
+
+   const handleSelectChange = (selected) => {
+     setSelectedOptions(selected);
+   };
   const name = useRef("");
   const price = useRef("");
 
@@ -12,10 +18,15 @@ function UpdateProduct({ close, product, show }) {
       .put(`/products/${product.id}`, {
         name: name.current.value,
         price: price.current.value,
+        categories: selectedOptions,
       })
       .then((res) => close());
   };
-
+  const handleOptions = (S, callback) => {
+    axiosInstance.get("/options").then((res) => {
+      callback(res.data);
+    });
+  };
   return ReactDOM.createPortal(
     <Modal show={show} onHide={close} centered>
       <Modal.Header closeButton>
@@ -41,6 +52,13 @@ function UpdateProduct({ close, product, show }) {
             defaultValue={product.price}
           />
         </Form.Group>
+        <AsyncSelect
+          isMulti
+          onChange={handleSelectChange}
+          loadOptions={handleOptions}
+          defaultOptions
+          placeholder="Select Categories"
+        />
       </Modal.Body>
 
       <Modal.Footer>

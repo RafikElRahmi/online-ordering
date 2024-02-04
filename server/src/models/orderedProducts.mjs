@@ -6,6 +6,7 @@ function getSome(id, callback) {
     callback(error, results);
   });
 }
+
 function add(ordredProduct, callback) {
   const sql = "INSERT INTO `ordredProducts` SET ?";
   connection.query(sql, ordredProduct, async function (error, results) {

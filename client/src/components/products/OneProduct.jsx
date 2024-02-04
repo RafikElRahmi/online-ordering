@@ -7,7 +7,7 @@ function OneProduct({ product,update,ondelete }) {
   const { isAdmin, setitems } = useAuth();
 
   return (
-    <Card>
+    <Card style={{ height: "100%" }}>
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text className="pos-end">
@@ -15,16 +15,10 @@ function OneProduct({ product,update,ondelete }) {
         </Card.Text>
         {isAdmin ? (
           <div className="button-container">
-            <Button
-              variant="danger"
-              onClick={ondelete}
-            >
+            <Button variant="danger" onClick={ondelete}>
               Delete
             </Button>
-            <Button
-              variant="primary"
-              onClick={update}
-            >
+            <Button variant="primary" onClick={update}>
               Update
             </Button>
           </div>

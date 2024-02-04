@@ -6,7 +6,7 @@ function OneCategory({ category, onupdate, ondelete }) {
   const { isAdmin } = useAuth();
     
   return (
-    <Card>
+    <Card style={{  height: "100%" }}>
       <Card.Body>
         <Card.Title>{category.name}</Card.Title>
         <Card.Text className="pos-end"></Card.Text>

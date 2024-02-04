@@ -7,25 +7,44 @@ import CreateProduct from "./../modals/CreateProduct";
 import { Button, Col, Row } from "react-bootstrap";
 import OneProduct from "./OneProduct";
 
-function AllProducts() {
+function AllProducts({ selectId, relations }) {
   const [deletePM, setDeletePM] = useState(false);
   const [updatePM, setUpdatePM] = useState(false);
   const [createPM, setCreatePM] = useState(false);
 
   const [selectedId, setSelectedId] = useState(null);
-
+  const reaload = () => {
+    location.reload();
+  };
   const [selectedProduct, setSelectedProduct] = useState({
     name: "",
     price: "",
   });
   const [products, setProducts] = useState([]);
+  const [showProducts, setShowProducts] = useState([]);
   const { isAdmin } = useAuth();
   useEffect(() => {
     axiosInstance
       .get("/products")
-      .then((res) => setProducts(res.data))
+      .then((res) => {
+        setProducts(res.data);
+        setShowProducts(res.data);
+      })
       .catch((error) => console.error("Error fetching products:", error));
   }, [selectedId, selectedProduct]);
+  useEffect(() => {
+    if (selectId !== 0) {
+      const productIds = relations.map((ids) => {
+        if (ids.category_id === selectId) return ids.product_id;
+      });
+      const productsToShow = products.filter((prod) => {
+        return productIds.includes(prod.id);
+      });
+      setShowProducts(productsToShow);
+    } else {
+      setShowProducts(products);
+    }
+  }, [selectId]);
   return (
     <Row className="mt-4">
       <DeleteProduct
@@ -45,6 +64,7 @@ function AllProducts() {
             price: "",
           });
           setUpdatePM(false);
+          reaload();
         }}
       />
       <CreateProduct
@@ -55,6 +75,7 @@ function AllProducts() {
             price: "",
           });
           setCreatePM(false);
+          reaload();
         }}
       />
       <h3 className="text-center">Products</h3>
@@ -71,8 +92,8 @@ function AllProducts() {
           </Button>
         )}
       </Col>
-      {products.length ? (
-        products.map((product) => (
+      {showProducts.length ? (
+        showProducts.map((product) => (
           <Col key={product.id} md={4} className="mb-4">
             <OneProduct
               product={product}

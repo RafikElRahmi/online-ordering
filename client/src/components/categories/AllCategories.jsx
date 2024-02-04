@@ -4,7 +4,6 @@ import axiosInstance from "../../config/axiosConfig";
 import DeleteCategory from "./../modals/DeleteCategory";
 import UpdateCategory from "./../modals/UpdateCategory";
 import CreateCategory from "./../modals/CreateCategory";
-import { useAuth } from "../../context/useAuth";
 import OneCategory from "./OneCategory";
 
 function AllCategories() {
@@ -16,7 +15,6 @@ function AllCategories() {
     name: "",
   });
   const [categories, setCategories] = useState([]);
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
     axiosInstance
@@ -55,21 +53,19 @@ function AllCategories() {
       />
       <h3 className="text-center">Categories</h3>
       <Col xs={12} md={12} className="pos-end">
-        {isAdmin && (
-          <Button
-            variant="success"
-            className="my-3 "
-            onClick={() => {
-              setCreateCM(true);
-            }}
-          >
-            Create new category
-          </Button>
-        )}
+        <Button
+          variant="success"
+          className="my-3 "
+          onClick={() => {
+            setCreateCM(true);
+          }}
+        >
+          Create new category
+        </Button>
       </Col>
       {categories.length ? (
         categories.map((category) => (
-          <Col key={category.id} md={3} className="mb-3">
+          <Col key={category.id} md={4} className="mb-4">
             <OneCategory
               ondelete={() => {
                 setDeleteCM(true);

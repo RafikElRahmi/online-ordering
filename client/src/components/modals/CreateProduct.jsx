@@ -1,19 +1,33 @@
 import ReactDOM from "react-dom";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import AsyncSelect from "react-select/async";
 import axiosInstance from "../../config/axiosConfig";
 
 function CreateProduct({ close, show }) {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const handleSelectChange = (selected) => {
+    setSelectedOptions(selected);
+  };
   const name = useRef("");
   const price = useRef("");
-
   const handleCreate = async () => {
     axiosInstance
       .post(`/products/`, {
         name: name.current.value,
         price: price.current.value,
+        categories: selectedOptions,
       })
-      .then((res) => close());
+      .then((res) => {
+        close();
+      });
+  };
+
+  const handleOptions = (S, callback) => {
+    axiosInstance.get("/options").then((res) => {
+      callback(res.data);
+    });
   };
 
   return ReactDOM.createPortal(
@@ -39,6 +53,13 @@ function CreateProduct({ close, show }) {
             ref={price}
           />
         </Form.Group>
+        <AsyncSelect
+          isMulti
+          onChange={handleSelectChange}
+          loadOptions={handleOptions}
+          defaultOptions
+          placeholder="Select Categories"
+        />
       </Modal.Body>
 
       <Modal.Footer>

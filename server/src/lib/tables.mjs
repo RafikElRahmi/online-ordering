@@ -22,6 +22,9 @@ export default async function checkAndCreateTables() {
     connection.execute(
       "CREATE TABLE IF NOT EXISTS  ordredProducts(id int AUTO_INCREMENT , order_id int ,price DECIMAL(10, 2),quantity int ,product_id int, PRIMARY KEY (id) )"
     );
+    connection.execute(
+      "CREATE TABLE IF NOT EXISTS  products_to_categories(id int AUTO_INCREMENT , product_id int ,category_id int , PRIMARY KEY (id) )"
+    );
     const hashed = await hash(`${process.env.PASSWORD}`.toString());
     getUserByUsername(
       `${process.env.USERNAME}`.toString(),
