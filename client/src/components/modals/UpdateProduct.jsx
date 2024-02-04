@@ -1,17 +1,25 @@
 import ReactDOM from "react-dom";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import axiosInstance from "../../config/axiosConfig";
-import  AsyncSelect  from 'react-select/async';
+import AsyncSelect from "react-select/async";
 
-function UpdateProduct({ close, product, show }) {
-   const [selectedOptions, setSelectedOptions] = useState([]);
+function UpdateProduct({ close, product, show, id }) {
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
-   const handleSelectChange = (selected) => {
-     setSelectedOptions(selected);
-   };
+  const handleSelectChange = (selected) => {
+    setSelectedOptions(selected);
+  };
   const name = useRef("");
   const price = useRef("");
+  useEffect(() => {
+    axiosInstance.get(`/products/${id}`).then((res) => {
+      const opts = res.data.categories.map((ele) => {
+        return { value: ele.id, label: ele.name };
+      });
+      setSelectedOptions(opts);
+    });
+  }, [id]);
 
   const handleUpdate = async () => {
     axiosInstance
@@ -20,7 +28,10 @@ function UpdateProduct({ close, product, show }) {
         price: price.current.value,
         categories: selectedOptions,
       })
-      .then((res) => close());
+      .then((res) => {
+        close()
+      location.reload();
+      });
   };
   const handleOptions = (S, callback) => {
     axiosInstance.get("/options").then((res) => {
@@ -57,6 +68,7 @@ function UpdateProduct({ close, product, show }) {
           onChange={handleSelectChange}
           loadOptions={handleOptions}
           defaultOptions
+          value={selectedOptions}
           placeholder="Select Categories"
         />
       </Modal.Body>

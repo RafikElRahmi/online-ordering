@@ -1,7 +1,7 @@
 import CategoryModel from "../models/category.mjs";
 import ProductCategoryModel from "../models/productCategory.mjs";
 
-export async function getCategories(req, res, next) {
+export async function getCategories(req, res) {
   try {
     CategoryModel.getAll((err, result) => {
       if (err) {
@@ -16,7 +16,7 @@ export async function getCategories(req, res, next) {
     return res.status(500).send("Internal Server Error");
   }
 }
-export async function getAvailableCategories(req, res, next) {
+export async function getAvailableCategories(req, res) {
   try {
     ProductCategoryModel.getAll((err, result) => {
       if (err) {

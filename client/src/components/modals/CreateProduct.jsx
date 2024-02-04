@@ -21,6 +21,7 @@ function CreateProduct({ close, show }) {
       })
       .then((res) => {
         close();
+        location.reload();
       });
   };
 

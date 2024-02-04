@@ -1,3 +1,4 @@
+import CategoryModel from "../models/category.mjs";
 import ProductModel from "../models/product.mjs";
 import ProductCategoryModel from "../models/productCategory.mjs";
 
@@ -23,7 +24,23 @@ export async function getProduct(req, res, next) {
       if (err) {
         return res.status(500).send("Internal Server Error");
       } else if (result.length) {
-        return res.status(200).send(result);
+        const data = result;
+        ProductCategoryModel.getSome(id, (err, result) => {
+          if (err) {
+            return res.status(500).send("Internal Server Error");
+          } else {
+          const categories = [];
+          result.map((ele,ind,arr) => {
+            CategoryModel.getOne(ele.category_id, (err, result) => {
+              if (err) {
+                return res.status(500).send("Internal Server Error");
+              } 
+              categories.push(result[0]);
+              if (ind === arr.length - 1)
+                return res.status(200).send({...data,categories});
+            })
+          })}
+        });
       } else {
         return res.status(404).send("Not Found");
       }

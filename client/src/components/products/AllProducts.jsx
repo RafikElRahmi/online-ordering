@@ -13,9 +13,7 @@ function AllProducts({ selectId, relations }) {
   const [createPM, setCreatePM] = useState(false);
 
   const [selectedId, setSelectedId] = useState(null);
-  const reaload = () => {
-    location.reload();
-  };
+ 
   const [selectedProduct, setSelectedProduct] = useState({
     name: "",
     price: "",
@@ -57,14 +55,15 @@ function AllProducts({ selectId, relations }) {
       />
       <UpdateProduct
         show={updatePM}
-        product={selectedProduct}
-        close={() => {
+        product={ selectedProduct }
+        id={selectedId}
+        close={ () => {
+          setSelectedId(null)
           setSelectedProduct({
             name: "",
             price: "",
           });
           setUpdatePM(false);
-          reaload();
         }}
       />
       <CreateProduct
@@ -75,7 +74,6 @@ function AllProducts({ selectId, relations }) {
             price: "",
           });
           setCreatePM(false);
-          reaload();
         }}
       />
       <h3 className="text-center">Products</h3>
@@ -99,6 +97,7 @@ function AllProducts({ selectId, relations }) {
               product={product}
               update={() => {
                 setSelectedProduct(product);
+                setSelectedId(product.id);
                 setUpdatePM(true);
               }}
               ondelete={() => {
