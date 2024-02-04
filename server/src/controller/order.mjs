@@ -52,7 +52,7 @@ export async function getOrder(req, res, next) {
                 if (err) {
                   return res.status(500).send("Internal Server Error");
                 } else {
-                  ele.name = result[0].name;
+                  ele.name = result.name;
                   products.push(ele);
                   if (products.length == arr.length) {
                     return res.status(200).send(products);

@@ -12,6 +12,12 @@ function remove(id, callback) {
     callback(error, results);
   });
 }
+function removeCategory(id, callback) {
+  const sql = "DELETE FROM `products_to_categories` WHERE category_id = ?";
+  connection.query(sql, [id], async function (error, results) {
+    callback(error, results);
+  });
+}
 function getSome(id, callback) {
   const sql = "SELECT * FROM `products_to_categories` WHERE product_id = ?";
   connection.query(sql, [id], async function (error, results) {
@@ -29,5 +35,6 @@ const ProductCategoryModel = {
   getAll,
   getSome,
   remove,
+  removeCategory,
 };
 export default ProductCategoryModel;

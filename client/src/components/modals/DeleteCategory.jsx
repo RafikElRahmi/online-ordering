@@ -5,7 +5,10 @@ import axiosInstance from "../../config/axiosConfig";
 
 function DeleteCategory({ close, id, show }) {
   const handleDelete = async () => {
-    axiosInstance.delete(`/categories/${id}`).then((res) => close());
+    axiosInstance.delete(`/categories/${id}`).then((res) => {
+      close();
+      location.reload();
+    });
   };
 
   return ReactDOM.createPortal(

@@ -9,7 +9,7 @@ function CategoriesProduct({ categories, handleFilter, selectedId }) {
         <>
           {categories.map((category) => (
             <Col
-              key={category.id}
+              key={category?.id}
               md={3}
               className="mb-3"
               onClick={() => handleFilter(category.id)}
@@ -17,11 +17,11 @@ function CategoriesProduct({ categories, handleFilter, selectedId }) {
               <Card
                 style={{ cursor: "pointer", height: "100%" }}
                 className={`${
-                  selectedId === category.id && "bg-primary text-white"
+                  selectedId === category?.id && "bg-primary text-white"
                 }`}
               >
                 <Card.Body className="d-flex text-break  align-items-center justify-content-center">
-                  <Card.Title>{category.name}</Card.Title>
+                  <Card.Title>{category?.name}</Card.Title>
                 </Card.Body>
               </Card>
             </Col>

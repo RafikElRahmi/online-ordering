@@ -22,21 +22,20 @@ export async function getAvailableCategories(req, res) {
       if (err) {
         return res.status(500).send("Internal Server Error");
       } else if (result.length) {
-        const relations =result
+        const relations = result;
         const originalArray = result.map((ele) => ele.category_id);
         const uniqueIdCategory = originalArray.filter(
           (item, index, self) => index === self.indexOf(item)
         );
-        const categories =[]
-        uniqueIdCategory.forEach((element,ind) => {
+        const categories = [];
+        uniqueIdCategory.forEach((element, ind) => {
           CategoryModel.getOne(element, (err, result) => {
             if (err) return res.status(500).send("Internal Server Error");
             categories.push(result[0]);
             if (ind === uniqueIdCategory.length - 1)
-              return res.status(200).send({categories,relations  });
+              return res.status(200).send({ categories, relations });
           });
         });
-        
       } else {
         return res.status(404).send("Not Found");
       }
@@ -98,7 +97,12 @@ export async function deleteCategory(req, res, next) {
       if (err) {
         return res.status(500).send("Internal Server Error");
       } else {
-        return res.status(200).send("deleted");
+        ProductCategoryModel.removeCategory(id, (err, result) => {
+          if (err) {
+            return res.status(500).send("Internal Server Error");
+          }
+          return res.status(200).send("deleted");
+        });
       }
     });
   } catch (err) {

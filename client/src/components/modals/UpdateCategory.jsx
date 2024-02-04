@@ -11,7 +11,10 @@ function UpdateCategory({ close, category, show }) {
       .put(`/categories/${category.id}`, {
         name: name.current.value,
       })
-      .then((res) => close());
+      .then((res) => {
+        close();
+        location.reload();
+      });
   };
 
   return ReactDOM.createPortal(
