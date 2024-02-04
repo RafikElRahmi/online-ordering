@@ -37,17 +37,19 @@ Before you begin, ensure you have the following installed:
     cd server
     npm install
 
-4. Create your db
-you can use wampserver or  any other mysql server to create a database 
+4. Create your db  
 
-5. Setup .env file in backend
-SECRET_KEY=your_secret_key
-USERNAME=admin_username
-PASSWORD=admin_password
-DB_HOST=localhost
-DB_USER=your_mysql_username
-DB_PASSWORD=your_mysql_password
-DB_DATABASE=your_db_name
+you can use wampserver or  any other mysql server to create a database  
+
+5. Setup .env file in backend  
+
+SECRET_KEY=your_secret_key  
+USERNAME=admin_username  
+PASSWORD=admin_password  
+DB_HOST=localhost  
+DB_USER=your_mysql_username  
+DB_PASSWORD=your_mysql_password  
+DB_DATABASE=your_db_name  
 
 6. Start the frontend
 
