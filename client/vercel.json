@@ -2,11 +2,11 @@
     "version": 2,
     "buildCommand": "npm run build",
     "devCommand": "npm run dev",
-    "outputDirectory": "dist",
+    "outputDirectory": "src",
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "dist/index.html"
+            "dest": "src/index.html"
         }
     ]
 }
