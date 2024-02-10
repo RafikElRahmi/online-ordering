@@ -5,7 +5,7 @@ import checkAndCreateTables from "./lib/tables.mjs";
 const app = express();
 app.use(
     cors({
-        origin: "https://online-ordering-xsxv.vercel.app/",
+        origin: "https://online-ordering-xsxv.vercel.app",
         methods: "GET,PUT,POST,DELETE,OPTIONS",
         credentials: true,
         exposedHeaders: "Authorization",
