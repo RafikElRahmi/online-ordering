@@ -7,7 +7,6 @@ function DeleteCategory({ close, id, show }) {
   const handleDelete = async () => {
     axiosInstance.delete(`/categories/${id}`).then((res) => {
       close();
-      location.reload();
     });
   };
 

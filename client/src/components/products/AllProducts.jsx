@@ -22,14 +22,14 @@ function AllProducts({ selectId, relations }) {
   const [showProducts, setShowProducts] = useState([]);
   const { isAdmin } = useAuth();
   useEffect(() => {
-    axiosInstance
-      .get("/products")
-      .then((res) => {
-        setProducts(res.data);
-        setShowProducts(res.data);
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, [selectedId, selectedProduct]);
+      axiosInstance
+          .get("/products")
+          .then((res) => {
+              setProducts(res.data);
+              setShowProducts(res.data);
+          })
+          .catch((error) => console.error("Error fetching products:", error));
+  }, [deletePM, updatePM, createPM]);
   useEffect(() => {
     if (selectId !== 0) {
       const productIds = relations.map((ids) => {

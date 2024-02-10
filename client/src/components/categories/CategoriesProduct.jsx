@@ -9,7 +9,7 @@ function CategoriesProduct({ categories, handleFilter, selectedId }) {
         <>
           {categories.map((category) => (
             <Col
-              key={category?.id}
+              key={category.id}
               md={3}
               className="mb-3"
               onClick={() => handleFilter(category.id)}

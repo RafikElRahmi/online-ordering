@@ -13,12 +13,14 @@ function UpdateProduct({ close, product, show, id }) {
   const name = useRef("");
   const price = useRef("");
   useEffect(() => {
-    axiosInstance.get(`/products/${id}`).then((res) => {
-      const opts = res.data.categories.map((ele) => {
-        return { value: ele.id, label: ele.name };
+    if (id) {
+      axiosInstance.get(`/products/${id}`).then((res) => {
+        const opts = res.data.categories.map((ele) => {
+          return { value: ele.id, label: ele.name };
+        });
+        setSelectedOptions(opts);
       });
-      setSelectedOptions(opts);
-    });
+    }
   }, [id]);
 
   const handleUpdate = async () => {
@@ -30,7 +32,6 @@ function UpdateProduct({ close, product, show, id }) {
       })
       .then((res) => {
         close()
-      location.reload();
       });
   };
   const handleOptions = (S, callback) => {

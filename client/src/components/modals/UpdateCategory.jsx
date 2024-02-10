@@ -13,7 +13,6 @@ function UpdateCategory({ close, category, show }) {
       })
       .then((res) => {
         close();
-        location.reload();
       });
   };
 
