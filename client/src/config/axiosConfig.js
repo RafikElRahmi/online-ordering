@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
-  headers: {
-    credentials: true,
-  },
+    baseURL: "https://online-ordering-psi.vercel.app/",
+    headers: {
+        credentials: true,
+    },
 });
 export default axiosInstance
