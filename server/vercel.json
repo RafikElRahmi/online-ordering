@@ -1,9 +1,18 @@
 {
     "version": 2,
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "outputDirectory": "src",
     "builds": [
         {
-            "src": "/src/**",
+            "src": "src/server.mjs",
             "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "src/server.mjs"
         }
     ]
 }
