@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   { path: "login", element: <Login /> },
   { path: "register", element: <Register /> },
   { path: "cart", element: <Cart /> },
-  { path: "orders", element: <Orders /> },
+  { path: "orders", element: <Orders /> },//heheheh
   { path: "*", element: <PageNotFound/> },
 ]);
 export default router;

@@ -10,7 +10,7 @@ function App() {
     <Auth>
       <NavBar />
       <main>
-        <RouterProvider router={router} />
+        <RouterProvider router={ router } />
       </main>
       <Footer />
     </Auth>
