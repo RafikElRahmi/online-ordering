@@ -4,7 +4,7 @@
     "description": "",
     "main": "src/server.mjs",
     "scripts": {
-        "build": "",
+        "build": "npm i",
         "dev": "nodemon src/server.mjs"
     },
     "author": "",
