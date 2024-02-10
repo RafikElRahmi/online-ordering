@@ -4,9 +4,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
     base: "./",
     server: {
-        fs: {
-            strict: false,
-        },
+        middlewareMode: "index.html",
     },
     plugins: [react()],
 });
