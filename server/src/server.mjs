@@ -4,12 +4,12 @@ import router from "./router/main.mjs";
 import checkAndCreateTables from "./lib/tables.mjs";
 const app = express();
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-    methods: "GET,PUT,POST,DELETE,OPTIONS",
-    credentials: true,
-    exposedHeaders: "Authorization",
-  })
+    cors({
+        origin: "https://online-ordering-xsxv.vercel.app/",
+        methods: "GET,PUT,POST,DELETE,OPTIONS",
+        credentials: true,
+        exposedHeaders: "Authorization",
+    })
 );
 checkAndCreateTables();
 app.use(express.json());
